@@ -1,7 +1,7 @@
 {% set version = "2.14.1" %}
 
 package:
-  name: qscintilla2
+  name: qscintilla2-qt6
   version: {{ version }}
 
 source:
@@ -93,24 +93,19 @@ requirements:
 
     - python                                # [build_platform != target_platform]
     - cross-python_{{ target_platform }}    # [build_platform != target_platform]
-    - sip                                   # [build_platform != target_platform]
-    - pyqt5-sip                             # [build_platform != target_platform]
   host:
     - python
-    - pip
-    - qt-main
-    - pyqt
-    - sip
-    - pyqt5-sip
+    - libgl-devel                        # [linux]
+    - libegl-devel                       # [linux]
+    - libopengl-devel                    # [linux]
+    - qt6-main
     - xorg-libxfixes  # [linux]
-    - pyqt-builder
   run:
     - python
-    - pyqt
 
 test:
-  imports:
-    - PyQt5.Qsci
+  commands:
+    - test -f $PREFIX/lib/libqscintilla2_qt6.so
 
 about:
   home: https://www.riverbankcomputing.com/software/qscintilla/intro
